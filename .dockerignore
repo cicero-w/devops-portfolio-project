@@ -1,0 +1,14 @@
+node_modules/
+
+*.log
+
+.git
+.gitignore
+
+.vscode
+.idea
+
+.env
+
+dist/
+build/
