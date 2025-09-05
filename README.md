@@ -219,50 +219,38 @@ Before you start, make sure that your computer has:
 ---
 
 ## 🛣 Roadmap
-Етап 1: CI/CD Pipeline
+* Stage 0: Preparation
+  + Create a public GitHub repository
+  + Initialize the folder structure
+  + Push the application's base code
 
-Налаштування GitHub Actions workflows
+* Stage 1: Basic Deployment on AWS EC2 (Manual)
+  + AWS
+  + Linux & Docker
+  + Run the application on the EC2 public IP
 
-Автоматична збірка та тестування
-
-Створення Docker образів
-
-Пуш образів у DockerHub
-
-Етап 2: Infrastructure as Code
-
-Створення VPC, EC2, S3 за допомогою Terraform
-
-Налаштування безпеки (Security Groups, IAM)
-
-Етап 3: Containerization
-
-Dockerization бекенду та фронтенду
-
-Docker Compose для локального розгортання
-
-Етап 4: Kubernetes Deployment
-
-Створення Kubernetes маніфестів
-
-Налаштування Ingress, Services, Deployments
-
-Етап 5: Monitoring
-
-Налаштування Prometheus для збору метрик
-
-Візуалізація в Grafana
+* Stage 2: Build and Security Automation (CI)
+  + DockerHub
+  + GitHub Secrets
+  + GitHub Actions Workflow
+ 
+* Stage 3: Infrastructure as Code (IaC) and Deployment Automation (CD)
+  + Terraform
+  + Ansible
+  + CI/CD updates
+ 
+* Stage 4: Kubernetes and GitOps
+  + Kubernetes Manifests / Helm
+  + ArgoCD
+  + Monitoring
+  + CI/CD updates
 
 ---
 
-## 📄 Ліцензія
-Цей проект ліцензований за умовами MIT License. Див. файл [LICENSE](LICENSE) для деталей.
+## 📄 License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
----
+## 🤝 Contribution
+Contributions are welcome! Please feel free to create issues or pull requests for any improvements.
 
-## 🤝 Внесок
-Внески вітаються! Будь ласка, не соромтеся створювати issues або pull requests для будь-яких покращень.
-
----
-
-## ⭐️ Якщо вам сподобався цей проект, будь ласка, поставьте зірочку на GitHub!
+## ⭐️ If you liked this project, please star it on GitHub!
