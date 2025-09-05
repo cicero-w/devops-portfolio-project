@@ -46,18 +46,18 @@ _На цьому етапі архітектура знаходиться в с�
 
 ## 📂 Структура репозиторію (поточний стан)
 
-devops-portfolio-project/
-├── app/
-│   ├── backend/
-│   └── frontend/
-├── infrastructure/
-│   └── terraform/
-├── kubernetes/
-│   └── base/
-├── .github/
-│   └── workflows/
-├── README.md
-└── LICENSE
+devops-portfolio-project/ \
+├── app/ \
+│   ├── backend/ \
+│   └── frontend/ \
+├── infrastructure/ \
+│   └── terraform/ \
+├── kubernetes/ \
+│   └── base/ \
+├── .github/ \
+│   └── workflows/ \
+├── README.md \
+└── LICENSE \
 
 ---
 
