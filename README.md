@@ -47,14 +47,59 @@ _At this stage the architecture is in the planning stage. I will update this sec
 ## 📂 Repository structure (current state)
 
 devops-portfolio-project/
-├── app/
-│   ├── backend/
-│   └── frontend/
-├── infrastructure/
-│   └── terraform/
-├── kubernetes/
-│   └── base/
-├── .github/workflows/
+├──  infrastructure
+│   ├── ansible
+│   └── terraform
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   └── workflows
+├── app
+│   ├── backend
+│   │   ├── data
+│   │   │   └── todo.db
+│   │   ├── src
+│   │   │   ├── persistence
+│   │   │   │   ├── index.js
+│   │   │   │   ├── mysql.js
+│   │   │   │   └── sqlite.js
+│   │   │   ├── routes
+│   │   │   │   ├── addItem.js
+│   │   │   │   ├── deleteItem.js
+│   │   │   │   ├── getGreeting.js
+│   │   │   │   ├── getItems.js
+│   │   │   │   └── updateItem.js
+│   │   │   ├── static
+│   │   │   │   └── .gitkeep
+│   │   │   └── index.js
+│   │   ├── package-lock.json
+│   │   └── package.json
+│   ├── frontend
+│   │   ├── public
+│   │   │   └── vite.svg
+│   │   ├── src
+│   │   │   ├── components
+│   │   │   │   ├── AddNewItemForm.jsx
+│   │   │   │   ├── Greeting.jsx
+│   │   │   │   ├── ItemDisplay.jsx
+│   │   │   │   ├── ItemDisplay.scss
+│   │   │   │   └── TodoListCard.jsx
+│   │   │   ├── App.jsx
+│   │   │   ├── index.scss
+│   │   │   └── main.jsx
+│   │   ├── index.html
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   └── vite.config.js
+│   └── .DS_Store
+├── kubernetes
+│   ├── base
+│   ├── helm
+│   └── overlays
+├── .DS_Store
+├── .dockerignore
+├── .editorconfig
+├── .gitignore
+├── LICENSE
 └── README.md
 
 ---
