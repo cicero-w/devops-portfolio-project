@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
 
-**Повна реалізація DevOps pipeline для веб-додатку з використанням сучасних практик: CI/CD, Infrastructure as Code, Kubernetes та GitOps.**
+**Complete implementation of a DevOps pipeline for a web application using modern practices: CI/CD, Infrastructure as Code, Kubernetes, and GitOps.**
 
 ## 📖 Огляд проекту
 
@@ -47,14 +47,14 @@ _На цьому етапі архітектура знаходиться в с�
 ## 📂 Структура репозиторію (поточний стан)
 
 devops-portfolio-project/
-├── app/                    # Вихідний код додатку
-│   ├── backend/           # Node.js/Express API
-│   └── frontend/          # React.js frontend
-├── infrastructure/        # Майбутні IaC конфігурації
-│   └── terraform/         # Будуть додані на Етапі 2
-├── kubernetes/           # Майбутні Kubernetes маніфести
-│   └── base/             # Будуть додані на Етапі 4
-├── .github/workflows/    # Майбутні GitHub Actions workflows
+├── app/
+│   ├── backend/
+│   └── frontend/
+├── infrastructure/
+│   └── terraform/
+├── kubernetes/
+│   └── base/
+├── .github/workflows/
 └── README.md
 
 ---
@@ -147,25 +147,25 @@ devops-portfolio-project/
 ## 📊 Скріни роботи системи
 
 <details>
-<summary>### 1. Структура проекту в IDE</summary>
+<summary>Структура проекту в IDE</summary>
 ![Project Structure in IDE](docs/images/stage-0-ide-structure.png)
 *Створена структура папок відповідає плану. Видно папки `app/backend`, `app/frontend`, `infrastructure/` та інші.*
 </details>
 
 <details>
-<summary>### 2. Командний рядок з структурою</summary>
+<summary>Командний рядок з структурою</summary>
 ![Terminal Tree Command](docs/images/stage-0-terminal-tree.png)
 *Вивід команди `tree`, що підтверджує логічну організацію файлів проекту.*
 </details>
 
 <details>
-<summary>### 3. Працюючий додаток в браузері</summary>
+<summary>Працюючий додаток в браузері</summary>
 ![Local Application Running](docs/images/stage-0-app-running.png)
 *Frontend-додаток (React) успішно запущено на `localhost:3000` і взаємодіє з бекендом (Node.js).*
 </details>
 
 <details>
-<summary>### 4. Взаємодія фронтенду з бекендом</summary>
+<summary>Взаємодія фронтенду з бекендом</summary>
 ![Browser Network Tab](docs/images/stage-0-network-requests.png)
 *Вкладка "Мережа" в інструментах розробника браузера показує успішні HTTP-запити з фронтенду на бекенд-API.*
 </details>
