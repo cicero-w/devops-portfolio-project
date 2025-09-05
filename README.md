@@ -194,7 +194,7 @@ Before you start, make sure that your computer has:
 
 <details>
 <summary>Project structure in IDE</summary>
-![Project Structure in IDE](https://github.com/cicero-w/devops-portfolio-project/blob/master/docs/images/stage-0/ide-structure.png)
+![Project Structure in IDE](https://github.com/cicero-w/devops-portfolio-project/blob/master/docs/images/stage-0/ide-structure.png?raw=true)
 </details>
 
 <details>
