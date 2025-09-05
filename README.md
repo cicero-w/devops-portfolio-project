@@ -93,8 +93,7 @@ devops-portfolio-project/
    npm --version
    git --version
 ```
-
-###Кроки для запуску:
+### Кроки для запуску:
 <details>
 <summary>Клонуйте репозиторій:</summary>
   
