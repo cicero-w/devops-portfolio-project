@@ -194,26 +194,22 @@ Before you start, make sure that your computer has:
 
 <details>
 <summary>Project structure in IDE</summary>
-![Project Structure in IDE](docs/images/stage-0-ide-structure.png)
-*Створена структура папок відповідає плану. Видно папки `app/backend`, `app/frontend`, `infrastructure/` та інші.*
+![Project Structure in IDE](docs/images/stage-0/ide-structure.png)
 </details>
 
 <details>
 <summary>Command line with structure</summary>
-![Terminal Tree Command](docs/images/stage-0-terminal-tree.png)
-*Вивід команди `tree`, що підтверджує логічну організацію файлів проекту.*
+![Terminal Tree Command](docs/images/stage-0/terminal-tree.png)
 </details>
 
 <details>
 <summary>A working application in the browser</summary>
-![Local Application Running](docs/images/stage-0-app-running.png)
-*Frontend-додаток (React) успішно запущено на `localhost:3000` і взаємодіє з бекендом (Node.js).*
+![Local Application Running](docs/images/stage-0/app-running.png)
 </details>
 
 <details>
 <summary>Frontend-backend interaction</summary>
-![Browser Network Tab](docs/images/stage-0-network-requests.png)
-*Вкладка "Мережа" в інструментах розробника браузера показує успішні HTTP-запити з фронтенду на бекенд-API.*
+![Browser Network Tab](docs/images/stage-0/network-requests.png)
 </details>
 
 ---
