@@ -102,6 +102,8 @@ devops-portfolio-project/
    git clone https://github.com/ваш-юзернейм/ваш-репозиторій.git
    cd ваш-репозиторій
 ```
+</details>
+<details>
 <summary>Запустіть бекенд (API сервер)</summary>
 + Відкрийте термінал і перейдіть в папку бекенду:
 
@@ -119,7 +121,8 @@ devops-portfolio-project/
   npm run dev
 ```
 + Сервер запуститься на порту `3000`:`http://localhost:3000`
-
+</details>
+<details>
 <summary>Запустіть фронтенд (клієнтську частину):</summary>
 + Відкрийте новий термінал (щоб не зупиняти бекенд) і перейдіть в папку фронтенду:
 
@@ -147,15 +150,21 @@ devops-portfolio-project/
 <summary>### 1. Структура проекту в IDE</summary>
 ![Project Structure in IDE](docs/images/stage-0-ide-structure.png)
 *Створена структура папок відповідає плану. Видно папки `app/backend`, `app/frontend`, `infrastructure/` та інші.*
+</details>
 
+<details>
 <summary>### 2. Командний рядок з структурою</summary>
 ![Terminal Tree Command](docs/images/stage-0-terminal-tree.png)
 *Вивід команди `tree`, що підтверджує логічну організацію файлів проекту.*
+</details>
 
+<details>
 <summary>### 3. Працюючий додаток в браузері</summary>
 ![Local Application Running](docs/images/stage-0-app-running.png)
 *Frontend-додаток (React) успішно запущено на `localhost:3000` і взаємодіє з бекендом (Node.js).*
+</details>
 
+<details>
 <summary>### 4. Взаємодія фронтенду з бекендом</summary>
 ![Browser Network Tab](docs/images/stage-0-network-requests.png)
 *Вкладка "Мережа" в інструментах розробника браузера показує успішні HTTP-запити з фронтенду на бекенд-API.*
