@@ -46,6 +46,7 @@ _At this stage the architecture is in the planning stage. I will update this sec
 
 ## 📂 Repository structure (current state)
 
+```bash
 devops-portfolio-project/
 ├──  infrastructure
 │   ├── ansible
@@ -101,6 +102,7 @@ devops-portfolio-project/
 ├── .gitignore
 ├── LICENSE
 └── README.md
+```
 
 ---
 
