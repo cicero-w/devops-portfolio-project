@@ -194,21 +194,25 @@ Before you start, make sure that your computer has:
 
 <details>
 <summary>Project structure in IDE</summary>
-![Project Structure in IDE](https://github.com/cicero-w/devops-portfolio-project/blob/master/docs/images/stage-0/ide-structure.png?raw=true)
+
+![Project Structure in IDE](docs/images/stage-0/ide-structure.png)
 </details>
 
 <details>
 <summary>Command line with structure</summary>
+   
 ![Terminal Tree Command](docs/images/stage-0/terminal-tree.png)
 </details>
 
 <details>
 <summary>A working application in the browser</summary>
+   
 ![Local Application Running](docs/images/stage-0/app-running.png)
 </details>
 
 <details>
 <summary>Frontend-backend interaction</summary>
+   
 ![Browser Network Tab](docs/images/stage-0/network-requests.png)
 </details>
 
