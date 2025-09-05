@@ -54,8 +54,10 @@ devops-portfolio-project/
 │   └── terraform/
 ├── kubernetes/
 │   └── base/
-├── .github/workflows/
-└── README.md
+├── .github/
+│   └── workflows/
+├── README.md
+└── LICENSE
 
 ---
 
