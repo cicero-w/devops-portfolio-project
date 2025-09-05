@@ -4,34 +4,34 @@
 
 **Complete implementation of a DevOps pipeline for a web application using modern practices: CI/CD, Infrastructure as Code, Kubernetes, and GitOps.**
 
-## 📖 Огляд проекту
+## 📖 Project overview
 
-Цей проект демонструє повний цикл розгортання cloud-native додатку (Todo App) з використанням сучасного DevOps стеку. Метою є створення надійної, автоматизованої та безпечної pipeline від коду до продакшену.
+This project demonstrates the full deployment cycle of a cloud-native application (Todo App) using a modern DevOps stack. The goal is to create a reliable, automated, and secure pipeline from code to production.
 
-**👨‍💻 Автор:** Ваше Ім'я \
+**👨‍💻 Author:** Pavlo \
 **📧 Контакт:** [paul.antonenko.w@gmail.com](paul.antonenko.w@gmail.com) | [LinkedIn](https://www.linkedin.com/in/pavlo-antonenko/) \
-**🚀 Live Demo:** _Додати посилання після розгортання_
+**🚀 Live Demo:** _Add link after deployment_
 
 ---
 
-## 🏗 Архітектура системи
+## 🏗 System architecture
 
-_На цьому етапі архітектура знаходиться в стадії планування. Оновлю цю секцію після завершення наступних етапів._
+_At this stage the architecture is in the planning stage. I will update this section once the next stages are completed.._
 
-### Заплановані компоненти:
-1. **Джерело коду:** GitHub репозиторій з гілкуванням за стратегією GitFlow
-2. **CI/CD:** GitHub Actions для збірки, тестування та сканування образів
-3. **Реєстр образів:** DockerHub
-4. **Інфраструктура (IaC):** AWS (EC2, VPC, S3), розгорнута за допомогою Terraform
-5. **Контейнеризація:** Docker
-6. **Оркестрація:** Kubernetes (k3s або Minikube для локального тестування)
-7. **Моніторинг:** Prometheus/Grafana для збору метрик та візуалізації
+### Planned components:
+1. **Source code:** GitHub repository with branching using the GitFlow strategy
+2. **CI/CD:** GitHub Actions for building, testing, and scanning images
+3. **Insult register:** DockerHub
+4. **Infrastructure (IaC):** AWS (EC2, VPC, S3), deployed using Terraform
+5. **Containerization:** Docker
+6. **Orchestration:** Kubernetes (k3s or Minikube for local testing)
+7. **Monitoring:** Prometheus/Grafana for metrics collection and visualization
 
 ---
 
-## ⚙️ Технологічний стек
+## ⚙️ Technology stack
 
-| Категорія | Технології |
+| Category | Technologies |
 |-----------|------------|
 | **Cloud** | AWS (EC2, VPC, IAM, S3) |
 | **Infrastructure as Code** | Terraform |
@@ -44,129 +44,178 @@ _На цьому етапі архітектура знаходиться в с�
 
 ---
 
-## 📂 Структура репозиторію (поточний стан)
+## 📂 Repository structure (current state)
 
-devops-portfolio-project/ \
-├── app/ \
-│   ├── backend/ \
-│   └── frontend/ \
-├── infrastructure/ \
-│   └── terraform/ \
-├── kubernetes/ \
-│   └── base/ \
-├── .github/ \
-│   └── workflows/ \
-├── README.md \
-└── LICENSE \
+devops-portfolio-project/
+├── app/
+│   ├── backend/
+│   └── frontend/
+├── infrastructure/
+│   └── terraform/
+├── kubernetes/
+│   └── base/
+├── .github/workflows/
+└── README.md
 
 ---
 
-## 🚀 Поточний статус
+## 🚀 Current status
 
-### ✅ Етап 0: Підготовка (Завершено)
-- [x] Створено публічний GitHub репозиторій
-- [x] Ініціалізовано структуру папок
-- [x] Додано базовий код додатку (бекенд на Node.js/Express та фронтенд на React)
-- [x] Налаштовано гілку `master`
+### ✅ Stage 0: Preparation (Completed)
+- [x] A public GitHub repository has been created
+- [x] Folder structure initialized
+- [x] Added the base code of the application (backend on Node.js and frontend on React)
+- [x] `master` branch configured
 
-### 🔄 Наступні етапи:
-- [ ] Етап 1: Налаштування CI/CD з GitHub Actions
-- [ ] Етап 2: Інфраструктура як код (IaC) з Terraform
-- [ ] Етап 3: Контейнеризація з Docker
-- [ ] Етап 4: Розгортання в Kubernetes
-- [ ] Етап 5: Моніторинг та логування
+### 🔄 Next steps:
+- [ ] Stage 1: Set up CI/CD with GitHub Actions
+- [ ] Stage 2: Infrastructure as Code (IaC) with Terraform
+- [ ] Stage 3: Containerization with Docker
+- [ ] Stage 4: Deploy to Kubernetes
+- [ ] Stage 5: Monitoring and logging
 
 ---
 
-## 🚀 Як запустити проект локально
+## 🚀 How to run a project locally
 
-Інструкції нижче дозволять вам запустити копію проекту на вашому локальному комп'ютері для розробки та тестування.
+The instructions below will allow you to run a copy of the project on your local computer for development and testing.
 
-### Пререквізити:
+### Prerequisites:
 
-Перед початком роботи переконайтеся, що на вашому комп'ютері встановлено:
-*   **Node.js** (версія 16 або вище) - середовище виконання для JavaScript.
-*   **npm** - менеджер пакетів, встановлюється разом з Node.js.
-*   **Git** - для клонування репозиторію.
+Before you start, make sure that your computer has:
+*   **Node.js** (version 16 or higher) - runtime environment for JavaScript.
+*   **npm** - package manager, installed with Node.js.
+*   **Git** - to clone the repository.
 
-**Як перевірити?** Виконайте в терміналі:
+**How to check?** Run in terminal:
 ```bash
    node --version
    npm --version
    git --version
 ```
-### Кроки для запуску:
+### Steps to start:
 <details>
-<summary>Клонуйте репозиторій:</summary>
+<summary>Clone the repository:</summary>
   
 ```bash
-   git clone https://github.com/ваш-юзернейм/ваш-репозиторій.git
-   cd ваш-репозиторій
+   git clone https://github.com/cicero-w/devops-portfolio-project.git
+   cd your-repository
 ```
 </details>
 <details>
-<summary>Запустіть бекенд (API сервер)</summary>
-+ Відкрийте термінал і перейдіть в папку бекенду:
+<summary>Start the backend (API server)</summary>
++ Open a terminal and go to the backend folder:
 
 ```bash
    cd app/backend
 ```
-+ Встановіть залежності:
++ Install dependencies:
 
 ```bash
   npm install
 ```
-+ Запустіть сервер:
++ Start the server:
 
 ```bash
   npm run dev
 ```
-+ Сервер запуститься на порту `3000`:`http://localhost:3000`
++ The server will start on port `3000`: `http://localhost:3000`
 </details>
 <details>
-<summary>Запустіть фронтенд (клієнтську частину):</summary>
-+ Відкрийте новий термінал (щоб не зупиняти бекенд) і перейдіть в папку фронтенду:
+<summary>Launch the frontend (client side):</summary>
++ Open a new terminal (so as not to stop the backend) and go to the frontend folder:
 
 ```bash
   cd app/frontend
 ```
-+ Встановіть залежності:
++ Install dependencies:
 
 ```bash
   npm install
 ```
-+ Запустіть клієнт:
++ Launch the client:
 
 ```bash
   npm run dev
 ```
-+ Додаток автоматично відкриється в браузері на порту `5173`:`http://localhost:5173`
++ The application will automatically open in the browser on the port `5173`: `http://localhost:5173`
 </details>
 
 ---
 
-## 📊 Скріни роботи системи
+## 📊 System operation screenshots
 
 <details>
-<summary>Структура проекту в IDE</summary>
+<summary>Project structure in IDE</summary>
 ![Project Structure in IDE](docs/images/stage-0-ide-structure.png)
 *Створена структура папок відповідає плану. Видно папки `app/backend`, `app/frontend`, `infrastructure/` та інші.*
 </details>
 
 <details>
-<summary>Командний рядок з структурою</summary>
+<summary>Command line with structure</summary>
 ![Terminal Tree Command](docs/images/stage-0-terminal-tree.png)
 *Вивід команди `tree`, що підтверджує логічну організацію файлів проекту.*
 </details>
 
 <details>
-<summary>Працюючий додаток в браузері</summary>
+<summary>A working application in the browser</summary>
 ![Local Application Running](docs/images/stage-0-app-running.png)
 *Frontend-додаток (React) успішно запущено на `localhost:3000` і взаємодіє з бекендом (Node.js).*
 </details>
 
 <details>
-<summary>Взаємодія фронтенду з бекендом</summary>
+<summary>Frontend-backend interaction</summary>
 ![Browser Network Tab](docs/images/stage-0-network-requests.png)
 *Вкладка "Мережа" в інструментах розробника браузера показує успішні HTTP-запити з фронтенду на бекенд-API.*
 </details>
+
+---
+
+## 🛣 Roadmap
+Етап 1: CI/CD Pipeline
+
+Налаштування GitHub Actions workflows
+
+Автоматична збірка та тестування
+
+Створення Docker образів
+
+Пуш образів у DockerHub
+
+Етап 2: Infrastructure as Code
+
+Створення VPC, EC2, S3 за допомогою Terraform
+
+Налаштування безпеки (Security Groups, IAM)
+
+Етап 3: Containerization
+
+Dockerization бекенду та фронтенду
+
+Docker Compose для локального розгортання
+
+Етап 4: Kubernetes Deployment
+
+Створення Kubernetes маніфестів
+
+Налаштування Ingress, Services, Deployments
+
+Етап 5: Monitoring
+
+Налаштування Prometheus для збору метрик
+
+Візуалізація в Grafana
+
+---
+
+## 📄 Ліцензія
+Цей проект ліцензований за умовами MIT License. Див. файл [LICENSE](LICENSE) для деталей.
+
+---
+
+## 🤝 Внесок
+Внески вітаються! Будь ласка, не соромтеся створювати issues або pull requests для будь-яких покращень.
+
+---
+
+## ⭐️ Якщо вам сподобався цей проект, будь ласка, поставьте зірочку на GitHub!
