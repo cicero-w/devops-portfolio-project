@@ -194,7 +194,7 @@ Before you start, make sure that your computer has:
 
 <details>
 <summary>Project structure in IDE</summary>
-![Project Structure in IDE](/docs/images/stage-0/ide-structure.png)
+   ![Project Structure in IDE](/docs/images/stage-0/ide-structure.png)
 </details>
 
 <details>
