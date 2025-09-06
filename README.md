@@ -151,6 +151,7 @@ Before you start, make sure that your computer has:
 </details>
 <details>
 <summary>Start the backend (API server)</summary>
+
 + Open a terminal and go to the backend folder:
 
 ```bash
@@ -170,6 +171,7 @@ Before you start, make sure that your computer has:
 </details>
 <details>
 <summary>Launch the frontend (client side):</summary>
+
 + Open a new terminal (so as not to stop the backend) and go to the frontend folder:
 
 ```bash
@@ -193,6 +195,9 @@ Before you start, make sure that your computer has:
 ## 📊 System operation screenshots
 
 <details>
+<summary>Stage 0</summary>
+
+<details>
 <summary>Project structure in IDE</summary>
 
 ![Project Structure in IDE](docs/images/stage-0/ide-structure.png)
@@ -214,6 +219,7 @@ Before you start, make sure that your computer has:
 <summary>Frontend-backend interaction</summary>
    
 ![Browser Network Tab](docs/images/stage-0/network-requests.png)
+</details>
 </details>
 
 ---
