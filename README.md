@@ -1,30 +1,32 @@
-# CloudNexus: End-to-End DevOps Pipeline Implementation
+# GitOps & DevOps: From Code to Kubernetes on macOS
 
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
 
-**Complete implementation of a DevOps pipeline for a web application using modern practices: CI/CD, Infrastructure as Code, Kubernetes, and GitOps.**
+**Complete implementation of a DevOps pipeline for a web application using modern practices: CI/CD, Infrastructure as Code, Kubernetes, and GitOps, tailored for a local development environment.**
 
 ## 📖 Project overview
 
-This project demonstrates the full deployment cycle of a cloud-native application (Todo App) using a modern DevOps stack. The goal is to create a reliable, automated, and secure pipeline from code to production.
+This project demonstrates the full deployment cycle of a cloud-native application (Todo App) using a modern DevOps stack. The goal is to create a reliable, automated, and secure pipeline from code to production without relying on paid cloud services. This setup is perfect for local development and portfolio demonstration on a macOS environment.
 
 **👨‍💻 Author:** Pavlo \
-**📧 Контакт:** [paul.antonenko.w@gmail.com](paul.antonenko.w@gmail.com) | [LinkedIn](https://www.linkedin.com/in/pavlo-antonenko/) \
+**📧 Contacts:** [paul.antonenko.w@gmail.com](paul.antonenko.w@gmail.com) | [LinkedIn](https://www.linkedin.com/in/pavlo-antonenko/) \
 **🚀 Live Demo:** _Add link after deployment_
 
 ---
 
 ## 🏗 System architecture
 
-_At this stage the architecture is in the planning stage. I will update this section once the next stages are completed.._
+_The architecture is designed to be self-contained and free, leveraging local virtualization and containerization tools on macOS._
 
 ### Planned components:
 1. **Source code:** GitHub repository with branching using the GitFlow strategy
 2. **CI/CD:** GitHub Actions for building, testing, and scanning images
-3. **Insult register:** DockerHub
-4. **Infrastructure (IaC):** AWS (EC2, VPC, S3), deployed using Terraform
+3. **Image registry:** DockerHub
+4. **Local Infrastructure:** A Linux VM on UTM (for local testing of infrastructure automation with Ansible) and Docker Desktop for Mac (for local Kubernetes)
+5. **Infrastructure as Code (IaC):** Ansible to automate the provisioning of the local VM
 5. **Containerization:** Docker
-6. **Orchestration:** Kubernetes (k3s or Minikube for local testing)
+6. **Orchestration:** Kubernetes (using the built-in feature of Docker Desktop for Mac)
+6. **GitOps:** ArgoCD for automated deployments to Kubernetes
 7. **Monitoring:** Prometheus/Grafana for metrics collection and visualization
 
 ---
@@ -33,11 +35,11 @@ _At this stage the architecture is in the planning stage. I will update this sec
 
 | Category | Technologies |
 |-----------|------------|
-| **Cloud** | AWS (EC2, VPC, IAM, S3) |
-| **Infrastructure as Code** | Terraform |
+| **Local Environment** | macOS, UTM |
+| **Infrastructure as Code** | Ansible |
 | **CI/CD** | GitHub Actions |
 | **Containers** | Docker |
-| **Orchestration** | Kubernetes |
+| **Orchestration & GitOps** | Kubernetes (Docker Desktop), Helm, ArgoCD |
 | **Web Servers** | Nginx |
 | **Programming** | Node.js, React |
 | **Version Control** | Git, GitHub |
@@ -91,12 +93,10 @@ devops-portfolio-project/
 │   │   ├── package-lock.json
 │   │   ├── package.json
 │   │   └── vite.config.js
-│   └── .DS_Store
 ├── kubernetes
 │   ├── base
 │   ├── helm
 │   └── overlays
-├── .DS_Store
 ├── .dockerignore
 ├── .editorconfig
 ├── .gitignore
@@ -115,11 +115,11 @@ devops-portfolio-project/
 - [x] `master` branch configured
 
 ### 🔄 Next steps:
-- [ ] Stage 1: Set up CI/CD with GitHub Actions
-- [ ] Stage 2: Infrastructure as Code (IaC) with Terraform
-- [ ] Stage 3: Containerization with Docker
-- [ ] Stage 4: Deploy to Kubernetes
-- [ ] Stage 5: Monitoring and logging
+- [ ] Stage 1: Manual VM setup and initial deployment.
+- [ ] Stage 2: Set up CI/CD with GitHub Actions.
+- [ ] Stage 3: Automate infrastructure provisioning with Ansible.
+- [ ] Stage 4: Deploy to Kubernetes using GitOps.
+- [ ] Stage 5: Monitoring and logging.
 
 ---
 
@@ -219,31 +219,38 @@ Before you start, make sure that your computer has:
 ---
 
 ## 🛣 Roadmap
+
+The following stages outline the path from a basic application to a fully automated DevOps pipeline.
+
 * Stage 0: Preparation
   + Create a public GitHub repository
   + Initialize the folder structure
   + Push the application's base code
 
-* Stage 1: Basic Deployment on AWS EC2 (Manual)
-  + AWS
-  + Linux & Docker
-  + Run the application on the EC2 public IP
+* Stage 1: Manual Deployment on a Local VM
+  + Set up a Linux VM using UTM on macOS
+  + Manually configure the VM (install Docker, Git)
+  + Clone the repository and run the application using `docker-compose`
 
 * Stage 2: Build and Security Automation (CI)
-  + DockerHub
-  + GitHub Secrets
-  + GitHub Actions Workflow
+  + Set up DockerHub repositories
+  + Configure GitHub Secrets for DockerHub credentials
+  + Create a GitHub Actions workflow to lint, build, scan (with Trivy), and push Docker images to DockerHub
  
-* Stage 3: Infrastructure as Code (IaC) and Deployment Automation (CD)
-  + Terraform
-  + Ansible
-  + CI/CD updates
+* Stage 3: Infrastructure as Code (Ansible) and Deployment Automation (CD)
+  + Write Ansible playbooks to automate the VM setup from Stage 1
+  + Automate the deployment process on the VM using `docker-compose pull` and `up`
+  + Integrate this into the CI/CD pipeline
  
 * Stage 4: Kubernetes and GitOps
-  + Kubernetes Manifests / Helm
-  + ArgoCD
-  + Monitoring
-  + CI/CD updates
+  + Enable Kubernetes in Docker Desktop
+  + Create Helm charts for the application
+  + Set up ArgoCD to manage deployments from Git
+  + Implement GitOps principles
+
+* Stage 5: Monitoring and Logging
+  + Deploy Prometheus/Grafana to the Kubernetes cluster.
+  + Configure dashboards to monitor application metrics.
 
 ---
 
