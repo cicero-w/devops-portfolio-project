@@ -5,7 +5,7 @@ networks:
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./app/frontend
       dockerfile: Dockerfile
     
     container_name: portfolio-frontend
@@ -19,7 +19,7 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./app/backend
       dockerfile: Dockerfile
 
     container_name: portfolio-backend
