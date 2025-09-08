@@ -1,0 +1,12 @@
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  test-nginx:
+    image: nginx:alpine
+    container_name: test-nginx
+    ports:
+      - "80:80"
+    networks:
+      - app-network
