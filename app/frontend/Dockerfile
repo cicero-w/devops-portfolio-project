@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm ci --only=production
 
+RUN npm ci
+
 COPY . .
 
 RUN npm run build
@@ -19,18 +21,21 @@ RUN echo 'server { \
   server_name localhost; \
   root /usr/share/nginx/html; \
   index index.html; \
+  \
   location / { \
   try_files $uri $uri/ /index.html; \
   } \
-  location /api/ { \
-  proxy_pass http://backend:8000; \
+  \
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ { \
+  expires 1y; \
+  add_header Cache-Control "public, immutable"; \
   } \
   }' > /etc/nginx/conf.d/default.conf
 
-RUN rm /etc/nginx/conf.d/default.conf.bak 2>/dev/null || true
+RUN rm /etc/nginx/conf.d/default.conf.dpkg-old 2>/dev/null || true
 
 EXPOSE 3000
 
-RUN sed -i 's/listen       80;/listen       3000;/' /etc/nginx/conf.d/default.conf 2>/dev/null || true
+RUN sed -i 's/listen\s*80;/listen 3000;/g' /etc/nginx/conf.d/default.conf
 
 CMD ["nginx", "-g", "daemon off;"]
