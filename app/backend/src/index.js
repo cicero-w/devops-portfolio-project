@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const db = require('./persistence');
 const getGreeting = require('./routes/getGreeting');
@@ -8,6 +9,7 @@ const updateItem = require('./routes/updateItem');
 const deleteItem = require('./routes/deleteItem');
 
 app.use(express.json());
+app.use(cors());
 app.use(express.static(__dirname + '/static'));
 
 app.get('/api/greeting', getGreeting);
@@ -18,7 +20,7 @@ app.delete('/api/items/:id', deleteItem);
 
 db.init()
     .then(() => {
-        app.listen(3000, () => console.log('Listening on port 3000'));
+        app.listen(8000, '0.0.0.0', () => console.log('Listening on port 8000'));
     })
     .catch((err) => {
         console.error(err);
@@ -27,7 +29,7 @@ db.init()
 
 const gracefulShutdown = () => {
     db.teardown()
-        .catch(() => {})
+        .catch(() => { })
         .then(() => process.exit());
 };
 
