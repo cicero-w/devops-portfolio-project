@@ -19,9 +19,6 @@ RUN npm run build
 
 FROM nginx:1.25-alpine AS production
 
-RUN addgroup -g 1001 -S nginx && \
-  adduser -S nginx -u 1001
-
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 RUN echo 'server { \
