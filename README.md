@@ -104,19 +104,19 @@ devops-portfolio-project/
 - [x] SSH Access: Configured passwordless SSH connection from macOS to VM
 - [x] Docker Installation: Installed Docker and Docker Compose on VM
 - [x] Application Containerization:
-      - Created multi-stage Dockerfile for React frontend with Nginx
-      - Optimized Node.js backend Dockerfile with security best practices
-      - Implemented health checks for all services
+      + Created multi-stage Dockerfile for React frontend with Nginx \
+      + Optimized Node.js backend Dockerfile with security best practices \
+      + Implemented health checks for all services \
 - [x] Reverse Proxy Setup: Configured Nginx with:
-      - Load balancing upstream configuration
-      - Security headers and rate limiting
-      - JSON logging for monitoring integration
-      - Gzip compression optimization
+      + Load balancing upstream configuration \
+      + Security headers and rate limiting \
+      + JSON logging for monitoring integration \
+      + Gzip compression optimization \
 - [x] Multi-Container Architecture: Docker Compose setup with:
-      - Isolated network with static IP assignment
-      - Resource limits and reservations
-      - Service dependencies and health checks
-      - Volume management for persistent logs
+      + Isolated network with static IP assignment \
+      + Resource limits and reservations \
+      + Service dependencies and health checks \
+      + Volume management for persistent logs \
 - [x] Production Deployment: Successfully deployed full-stack application accessible via `http://vm-ip`
 
 Key Achievements:
@@ -170,7 +170,7 @@ Before you start, make sure that your computer has:
 ```
 </details>
 <details>
-<summary>Launch the frontend (client side):</summary>
+<summary>3. Launch the frontend (client side):</summary>
 
 ```bash
     cd app/frontend
@@ -266,6 +266,7 @@ The following stages outline the path from a basic application to a fully automa
   - **Observability:** Structured JSON logging, health endpoints
   - **Scalability:** Load balancer configuration ready for horizontal scaling
 </details>
+<details>
 <summary>Deployment Commands</summary>
 
   ## On VM (Ubuntu):
