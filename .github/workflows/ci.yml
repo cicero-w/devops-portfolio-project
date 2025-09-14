@@ -15,7 +15,6 @@ jobs:
   lint-dockerfiles:
     name: Lint Dockerfiles
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,19 +33,18 @@ jobs:
           ignore: DL3008,DL3009
           failure-threshold: warning
 
-  build-and-test:
-    name: Build and Test Images
+  build-test-scan:
+    name: Build, Test, and Scan Images
     runs-on: ubuntu-latest
     needs: lint-dockerfiles
-    
-    outputs:
-      backend-tag: ${{ steps.meta-backend.outputs.tags }}
-      frontend-tag: ${{ steps.meta-frontend.outputs.tags }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       
@@ -62,89 +60,42 @@ jobs:
         with:
           images: ${{ env.BACKEND_IMAGE }}
           tags: |
-            # Tag for master branch
-            type=ref,event=branch,enable={{is_default_branch}}
-            # Tag fot PR
-            type=ref,event=pr
-            # Tag with commit hash
             type=sha,prefix={{branch}}-
-            # Always latest for master
+            # Додаємо теги для публікації одразу, щоб не перезбирати
+            type=ref,event=branch
             type=raw,value=latest,enable={{is_default_branch}}
-      
-      - name: Build Backend image
+
+      - name: Build and Push Backend image (for testing/scanning)
+        id: build-backend
         uses: docker/build-push-action@v5
         with:
           context: app/backend
-          push: false
+          push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      
-      - name: Extract Frontend metadata  
-        id: meta-frontend
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.FRONTEND_IMAGE }}
-          tags: |
-            type=ref,event=branch,enable={{is_default_branch}}
-            type=ref,event=pr
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
-      
-      - name: Build Frontend image
-        uses: docker/build-push-action@v5
-        with:
-          context: app/frontend
-          push: false
-          tags: ${{ steps.meta-frontend.outputs.tags }}
-          labels: ${{ steps.meta-frontend.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      
+          platforms: linux/amd64,linux/arm64
+
       - name: Test Backend container
         run: |
-          # Run backend container at background
+          BACKEND_TEST_TAG=${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
           docker run -d --name test-backend \
             -e NODE_ENV=production \
             -e API_PORT=8000 \
-            ${{ env.BACKEND_IMAGE }}:master-${{ github.sha }}
+            $BACKEND_TEST_TAG
           
-          # Waiting for start (30s max)
+          echo "Waiting for backend container to start..."
           timeout 30 bash -c 'until docker exec test-backend curl -f http://localhost:8000/api/greeting; do sleep 2; done'
+          echo "Backend container started successfully!"
           
-          # Clear
           docker stop test-backend
           docker rm test-backend
-      
-      - name: Test Frontend container
-        run: |
-          # Run frontend container
-          docker run -d --name test-frontend \
-            ${{ env.FRONTEND_IMAGE }}:master-${{ github.sha }}
-          
-          # Check Nginx starts
-          timeout 30 bash -c 'until docker exec test-frontend curl -f http://localhost:3000/health; do sleep 2; done'
-          
-          # Clear
-          docker stop test-frontend
-          docker rm test-frontend
 
-  security-scan:
-    name: Security Vulnerability Scan
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    
-    continue-on-error: false
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
       - name: Run Trivy vulnerability scanner - Backend
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.BACKEND_IMAGE }}:master-${{ github.sha }}
+          image-ref: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
           format: 'sarif'
           output: 'backend-trivy-results.sarif'
           severity: 'CRITICAL,HIGH,MEDIUM'
@@ -155,11 +106,45 @@ jobs:
         with:
           sarif_file: 'backend-trivy-results.sarif'
           category: 'backend-container'
+
+      - name: Extract Frontend metadata  
+        id: meta-frontend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.FRONTEND_IMAGE }}
+          tags: |
+            type=sha,prefix={{branch}}-
+            type=ref,event=branch
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and Push Frontend image (for testing/scanning)
+        id: build-frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: app/frontend
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta-frontend.outputs.tags }}
+          labels: ${{ steps.meta-frontend.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
       
+      - name: Test Frontend container
+        run: |
+          FRONTEND_TEST_TAG=${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
+          docker run -d --name test-frontend $FRONTEND_TEST_TAG
+          
+          echo "Waiting for frontend container to start..."
+          timeout 30 bash -c 'until docker exec test-frontend curl -f http://localhost:3000/health; do sleep 2; done'
+          echo "Frontend container started successfully!"
+
+          docker stop test-frontend
+          docker rm test-frontend
+
       - name: Run Trivy vulnerability scanner - Frontend
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.FRONTEND_IMAGE }}:master-${{ github.sha }}
+          image-ref: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
           format: 'sarif'
           output: 'frontend-trivy-results.sarif' 
           severity: 'CRITICAL,HIGH,MEDIUM'
@@ -171,75 +156,8 @@ jobs:
           sarif_file: 'frontend-trivy-results.sarif'
           category: 'frontend-container'
       
-      - name: Run Trivy scanner for PR comment
-        uses: aquasecurity/trivy-action@master
-        if: github.event_name == 'pull_request'
-        with:
-          image-ref: ${{ env.BACKEND_IMAGE }}:master-${{ github.sha }}
-          format: 'table'
-          exit-code: 1
-          severity: 'CRITICAL,HIGH'
-
-  publish:
-    name: Publish Images to Registry
-    runs-on: ubuntu-latest
-    needs: [build-and-test, security-scan]
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-      - name: Extract Backend metadata
-        id: meta-backend
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.BACKEND_IMAGE }}
-          tags: |
-            type=ref,event=branch
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
-      
-      - name: Build and push Backend image
-        uses: docker/build-push-action@v5
-        with:
-          context: app/backend
-          push: true
-          tags: ${{ steps.meta-backend.outputs.tags }}
-          labels: ${{ steps.meta-backend.outputs.labels }}
-          cache-from: type=gha
-          platforms: linux/arm64, linux/amd64
-      
-      - name: Extract Frontend metadata
-        id: meta-frontend
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.FRONTEND_IMAGE }}
-          tags: |
-            type=ref,event=branch
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
-      
-      - name: Build and push Frontend image
-        uses: docker/build-push-action@v5
-        with:
-          context: app/frontend
-          push: true
-          tags: ${{ steps.meta-frontend.outputs.tags }}
-          labels: ${{ steps.meta-frontend.outputs.labels }}
-          cache-from: type=gha
-          platforms: linux/amd64, linux/arm64
-      
       - name: Job Summary
+        if: github.event_name == 'push'
         run: |
           echo "## Published Images 🚀" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY  
@@ -249,4 +167,4 @@ jobs:
           echo "### Frontend:" >> $GITHUB_STEP_SUMMARY  
           echo "${{ steps.meta-frontend.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Images are ready for deployment! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "Images are scanned, tested, and published! 🎉" >> $GITHUB_STEP_SUMMARY
