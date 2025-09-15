@@ -191,9 +191,10 @@ jobs:
       
       - name: Push Backend image to Docker Hub
         run: |
-          BACKEND_TAGS=${{ steps.meta-backend.outputs.tags }}
-          echo "$BACKEND_TAGS" | while read -r tag; do
-            if [ -n "$tag" ]; then
+          BACKEND_TAGS="${{ steps.meta-backend.outputs.tags }}"
+          for tag in $BACKEND_TAGS; do
+            if [[ -n "$tag" ]]; then
+              echo "Pushing backend image with tag: $tag"
               docker tag ${{ env.BACKEND_IMAGE }}:${{ github.sha }} "$tag"
               docker push "$tag"
             fi
@@ -211,9 +212,10 @@ jobs:
       
       - name: Push Frontend image to Docker Hub
         run: |
-          FRONTEND_TAGS=${{ steps.meta-frontend.outputs.tags }}
-          echo "$FRONTEND_TAGS" | while read -r tag; do
-            if [ -n "$tag" ]; then
+          FRONTEND_TAGS="${{ steps.meta-frontend.outputs.tags }}"
+          for tag in $FRONTEND_TAGS; do
+            if [[ -n "$tag" ]]; then
+              echo "Pushing frontend image with tag: $tag"
               docker tag ${{ env.FRONTEND_IMAGE }}:${{ github.sha }} "$tag"
               docker push "$tag"
             fi
