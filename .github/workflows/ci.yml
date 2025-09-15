@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [master]
 
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+
 env:
   REGISTRY: docker.io
   BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/devops-portfolio-backend
@@ -133,6 +138,7 @@ jobs:
           docker rm test-frontend
 
       - name: Run Trivy vulnerability scanner - Backend
+        id: trivy-backend
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
@@ -143,12 +149,13 @@ jobs:
       
       - name: Upload Backend Trivy scan results
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: ${{ always() && steps.trivy-backend.outcome == 'success' }}
         with:
           sarif_file: 'backend-trivy-results.sarif'
           category: 'backend-container'
       
       - name: Run Trivy vulnerability scanner - Frontend
+        id: trivy-frontend
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.FRONTEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
@@ -159,10 +166,13 @@ jobs:
       
       - name: Upload Frontend Trivy scan results
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: ${{ always() && steps.trivy-frontend.outcome == 'success' }}
         with:
           sarif_file: 'frontend-trivy-results.sarif'
           category: 'frontend-container'
+
+      - name: List files after Trivy scan
+        run: ls -l
 
   publish:
     name: Publish Images to Registry
