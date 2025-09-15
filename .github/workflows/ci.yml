@@ -132,37 +132,37 @@ jobs:
           docker stop test-frontend
           docker rm test-frontend
 
-#      - name: Run Trivy vulnerability scanner - Backend
-#        uses: aquasecurity/trivy-action@master
-#        with:
-#          image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
-#          format: 'sarif'
-#          output: 'backend-trivy-results.sarif'
-#          severity: 'CRITICAL,HIGH'
-#        continue-on-error: true
-#      
-#      - name: Upload Backend Trivy scan results
-#        uses: github/codeql-action/upload-sarif@v3
-#        if: always()
-#        with:
-#          sarif_file: 'backend-trivy-results.sarif'
-#          category: 'backend-container'
-#      
-#      - name: Run Trivy vulnerability scanner - Frontend
-#        uses: aquasecurity/trivy-action@master
-#        with:
-#          image-ref: ${{ env.FRONTEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
-#          format: 'sarif'
-#          output: 'frontend-trivy-results.sarif'
-#          severity: 'CRITICAL,HIGH'
-#        continue-on-error: true
-#      
-#      - name: Upload Frontend Trivy scan results
-#        uses: github/codeql-action/upload-sarif@v3
-#        if: always()
-#        with:
-#          sarif_file: 'frontend-trivy-results.sarif'
-#          category: 'frontend-container'
+      - name: Run Trivy vulnerability scanner - Backend
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
+          format: 'sarif'
+          output: 'backend-trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+        continue-on-error: true
+      
+      - name: Upload Backend Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'backend-trivy-results.sarif'
+          category: 'backend-container'
+      
+      - name: Run Trivy vulnerability scanner - Frontend
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.FRONTEND_IMAGE }}:${{ github.ref_name }}-${{ github.sha }}
+          format: 'sarif'
+          output: 'frontend-trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+        continue-on-error: true
+      
+      - name: Upload Frontend Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'frontend-trivy-results.sarif'
+          category: 'frontend-container'
 
   publish:
     name: Publish Images to Registry
