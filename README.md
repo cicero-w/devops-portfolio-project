@@ -1,8 +1,8 @@
 # GitOps & DevOps: From Code to Kubernetes on macOS
 
 [![CI Pipeline Status](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml/badge.svg)](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml)
-[![Docker Image Version (Backend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-backend?label=backend&logo=docker&sort=semver)](https://hub.docker.com/r/cicero2/devops-portfolio-backend)
-[![Docker Image Version (Frontend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-frontend?label=frontend&logo=docker&sort=semver)](https://hub.docker.com/r/cicero2/devops-portfolio-frontend)
+[![Docker Image Version (Backend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-backend?label=backend&logo=docker&sort=latest)](https://hub.docker.com/r/cicero2/devops-portfolio-backend)
+[![Docker Image Version (Frontend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-frontend?label=frontend&logo=docker&sort=latest)](https://hub.docker.com/r/cicero2/devops-portfolio-frontend)
 [![GitHub license](https://img.shields.io/github/license/cicero-w/devops-portfolio-project)](https://github.com/cicero-w/devops-portfolio-project/blob/master/LICENSE)
 
 **Complete implementation of a DevOps pipeline for a web application using modern practices: CI/CD, Infrastructure as Code, Kubernetes, and GitOps, tailored for a local development environment.**
@@ -189,10 +189,48 @@ Key CI/CD Achievements:
   
 - Vulnerability Scanning: Every image scanned for CVE database matches
 - Security Reports: Automated upload to GitHub Security tab
+- Risk Management: Known vulnerabilities documented and assessed for business impact
 - Access Control: Token-based authentication with minimal permissions
 - Audit Logging: Complete pipeline execution history
 
 </details>
+
+---
+
+## Known Security Issues
+
+This section demonstrates real-world vulnerability management practices as found in production environments.
+
+<details>
+<summary>Container Base Images</summary>
+
+- libxml2 CVEs (High): Alpine Linux upstream vulnerabilities
+  + Status: Monitoring for Alpine security updates
+  + Impact: No direct application functionality affected
+  + Mitigation: Network isolation, security headers, regular base image updates
+
+</details>
+<details>
+<summary>Application Dependencies</summary>
+
+- cross-spawn ReDoS (High): Regular expression denial of service potential
+  + Status: Risk accepted - low exploitability in containerized environment
+  + Mitigation: Resource limits, timeout configurations
+- brace-expansion (Low): Minor dependency vulnerability
+  + Status: Monitoring for package maintainer updates
+
+</details>
+<details>
+<summary>Security Management Approach</summary>
+
+- Continuous Monitoring: Automated scanning on every commit
+- Risk Assessment: Business impact evaluation for each vulnerability
+- Remediation Strategy: Prioritized by severity and exploitability
+- Documentation: Complete audit trail in GitHub Security tab
+
+</details>
+
+_Note: In production environments, maintaining a vulnerability backlog with documented risk acceptance is standard practice. Not all CVEs require immediate remediation._
 
 ---
 
@@ -273,7 +311,7 @@ _GitHub Actions workflow run showing all jobs (Lint, Build/Test/Scan, Publish) w
 ![DockerHub repositories](docs/images/stage-2/images.png)
 _DockerHub repositories showing published images with multiple tags (master, develop, SHA tags)_
 
-![GitHub Security](docs/images/stage-0/app-running.png)
+![GitHub Security](docs/images/stage-2/code-scanning.png)
 _GitHub Security tab displaying Trivy scan results with vulnerability reports for both containers_
 
 </details>
@@ -296,15 +334,18 @@ The following stages outline the path from a basic application to a fully automa
   + Configure Nginx reverse proxy with security headers
   + Implement health checks and monitoring readiness
 
-* Stage 2: Build and Security Automation (CI)
+* Stage 2: Build and Security Automation (CI) ✅
   + Set up DockerHub repositories
   + Configure GitHub Secrets for DockerHub credentials
   + Create a GitHub Actions workflow to lint, build, scan (with Trivy), and push Docker images to DockerHub
+  + Implement automated security vulnerability scanning
+  + Integrate quality gates and automated testing
  
 * Stage 3: Infrastructure as Code (Ansible) and Deployment Automation (CD)
   + Write Ansible playbooks to automate the VM setup from Stage 1
   + Automate the deployment process on the VM using docker compose
   + Integrate this into the CI/CD pipeline
+  + Implement infrastructure provisioning and configuration management
  
 * Stage 4: Kubernetes and GitOps
   + Enable Kubernetes in Docker Desktop
@@ -315,6 +356,7 @@ The following stages outline the path from a basic application to a fully automa
 * Stage 5: Monitoring and Logging
   + Deploy Prometheus/Grafana to the Kubernetes cluster.
   + Configure dashboards to monitor application metrics.
+  + Implement centralized logging and alerting
 
 ---
 
