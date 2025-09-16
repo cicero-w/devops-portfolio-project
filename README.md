@@ -1,6 +1,11 @@
 # GitOps & DevOps: From Code to Kubernetes on macOS
 
-<!-- ![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square) -->
+# DevOps Portfolio Project: From Code to Kubernetes on macOS
+
+[![CI Pipeline Status](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml/badge.svg)](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml)
+[![Docker Image Version (Backend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-backend?label=backend&logo=docker&sort=semver)](https://hub.docker.com/r/cicero2/devops-portfolio-backend)
+[![Docker Image Version (Frontend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-frontend?label=frontend&logo=docker&sort=semver)](https://hub.docker.com/r/cicero2/devops-portfolio-frontend)
+[![GitHub license](https://img.shields.io/github/license/cicero-w/devops-portfolio-project)](https://github.com/cicero-w/devops-portfolio-project/blob/master/LICENSE)
 
 **Complete implementation of a DevOps pipeline for a web application using modern practices: CI/CD, Infrastructure as Code, Kubernetes, and GitOps, tailored for a local development environment.**
 
@@ -10,7 +15,8 @@ This project demonstrates the full deployment cycle of a cloud-native applicatio
 
 **Author:** Pavlo \
 **Contacts:** [paul.antonenko.w@gmail.com](paul.antonenko.w@gmail.com) | [LinkedIn](https://www.linkedin.com/in/pavlo-antonenko/) \
-**Live Demo:** http://your-ip(or your-vm-ip)
+**Live Demo:** http://your-ip
+
 ---
 
 ## System Architecture
@@ -43,6 +49,7 @@ _The architecture is designed to be self-contained and free, leveraging local vi
 | **Programming** | Node.js (Express), React (Vite) |
 | **Database** | SQLite |
 | **Version Control** | Git, GitHub |
+| **Image Registry** | DockerHub |
 
 ---
 
@@ -51,18 +58,17 @@ _The architecture is designed to be self-contained and free, leveraging local vi
 <pre>
 devops-portfolio-project/
 ├── infrastructure/
-│   ├── ansible/
-│   └── terraform/
+│   
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   └── workflows/
+│   └──workflows/
+│       └── ci.yml                  # CI/CD Pipeline
 ├── app/
 │   ├── backend/                    # Node.js API server
 │   │   ├── src/
 │   │   │   ├── persistence/        # Database layer
 │   │   │   ├── routes/             # API endpoints
 │   │   │   └── index.js            # Main server file
-│   │   ├── Dockerfile
+│   │   ├── Dockerfile              # Multi-stage production build
 │   │   ├── healthcheck.js
 │   │   ├── package.json
 │   │   └── package-lock.json
@@ -71,17 +77,14 @@ devops-portfolio-project/
 │       │   ├── components/
 │       │   ├── App.jsx
 │       │   └── main.jsx
-│       ├── Dockerfile
+│       ├── Dockerfile              # Multi-stage with Nginx
+│       ├── nginx.conf              # Custom Nginx configuration
 │       ├── package.json
 │       ├── package-lock.json
 │       └── vite.config.js
 ├── nginx/                          # Reverse proxy configuration
 │   ├── nginx.conf
 │   └── default.conf
-├── kubernetes/
-│   ├── base/
-│   ├── helm/
-│   └── overlays/
 ├── docker-compose.yml              # Multi-container orchestration
 ├── .dockerignore
 ├── .gitignore
@@ -104,32 +107,94 @@ devops-portfolio-project/
 - [x] SSH Access: Configured passwordless SSH connection from macOS to VM
 - [x] Docker Installation: Installed Docker and Docker Compose on VM
 - [x] Application Containerization:
-      + Created multi-stage Dockerfile for React frontend with Nginx \
-      + Optimized Node.js backend Dockerfile with security best practices \
-      + Implemented health checks for all services \
+    + Created multi-stage Dockerfile for React frontend with Nginx
+    + Optimized Node.js backend Dockerfile with security best practices
+    + Implemented health checks for all services
 - [x] Reverse Proxy Setup: Configured Nginx with:
-      + Load balancing upstream configuration \
-      + Security headers and rate limiting \
-      + JSON logging for monitoring integration \
-      + Gzip compression optimization \
+    + Load balancing upstream configuration
+    + Security headers and rate limiting
+    + JSON logging for monitoring integration
+    + Gzip compression optimization
 - [x] Multi-Container Architecture: Docker Compose setup with:
-      + Isolated network with static IP assignment \
-      + Resource limits and reservations \
-      + Service dependencies and health checks \
-      + Volume management for persistent logs \
+    + Isolated network with static IP assignment
+    + Resource limits and reservations
+    + Service dependencies and health checks
+    + Volume management for persistent logs
 - [x] Production Deployment: Successfully deployed full-stack application accessible via `http://vm-ip`
 
-Key Achievements:
-  - Zero-downtime architecture with health checks and graceful shutdowns
-  - Security hardening with non-root users, minimal attack surface
-  - Performance optimization with caching, compression, and resource limits
-  - Monitoring readiness with structured logging and health endpoints
+### Stage 2: Build and Security Automation (CI) ✅ (Completed)
+- [x] DockerHub Integration: Created public repositories for backend and frontend
+- [x] GitHub Secrets: Configured secure authentication with DockerHub tokens
+- [x] GitHub Actions CI Pipeline:
+    + Dockerfile Linting: Hadolint validation with industry best practices
+    + Multi-stage Build Process: Optimized Docker image construction
+    + Container Testing: Automated health check validation for both services
+    + Security Vulnerability Scanning: Trivy integration with SARIF reporting
+    + Automated Publishing: Docker images pushed to DockerHub registry
+- [x] Security Integration:
+    + SARIF reports uploaded to GitHub Security tab
+    + Critical and high-severity vulnerability detection
+    + Automated security scanning on every commit
+- [x] CI/CD Workflow Features:
+    + Parallel job execution for optimal performance
+    + Artifact caching between pipeline stages
+    + Conditional publishing (master/develop branches only)
+    + Comprehensive job summaries and reporting
+
+Key CI/CD Achievements:
+  - Zero-touch deployment pipeline - from commit to registry automatically
+  - Security-first approach - every image scanned before publication
+  - Quality gates - Dockerfile linting and container testing mandatory
+  - Audit trail - complete visibility of build and security scan results
 
 ### Next Steps:
-- [ ] Stage 2: Set up CI/CD with GitHub Actions.
-- [ ] Stage 3: Infrastructure as Code with Ansible
+- [ ] Stage 3: Infrastructure as Code with Ansible and Deployment Automation (CD)
 - [ ] Stage 4: Kubernetes and GitOps with ArgoCD
 - [ ] Stage 5: Monitoring and Observability
+
+---
+
+## CI/CD Pipeline Details
+
+<details>
+<summary>Automated Workflow Triggers:</summary>
+  
+- Push to master/develop: Full pipeline with publishing to DockerHub
+- Pull Requests to master: Build, test, and scan without publishing
+- Manual dispatch: Available for on-demand pipeline execution
+
+</details>
+
+<details>
+<summary>Pipeline Stages:</summary>
+  
+1. Lint Dockerfiles
+    + Hadolint validation for both frontend and backend
+    + Industry best practices enforcement
+    + Security and optimization rule checking
+
+2. Build, Test, and Scan
+    + Multi-stage Docker image construction
+    + Container functionality testing
+    + Trivy security vulnerability scanning
+    + SARIF report generation for GitHub Security
+
+3. Publish to Registry
+    + Conditional publishing (master/develop only)
+    + Multi-tag strategy (branch, SHA, latest)
+    + DockerHub registry integration
+
+</details>
+
+<details>
+<summary>Security Features:</summary>
+  
+- Vulnerability Scanning: Every image scanned for CVE database matches
+- Security Reports: Automated upload to GitHub Security tab
+- Access Control: Token-based authentication with minimal permissions
+- Audit Logging: Complete pipeline execution history
+
+</details>
 
 ---
 
@@ -199,6 +264,19 @@ _Full-stack application deployed on Ubuntu VM with Docker containers_
 
 ![Services  Running](docs/images/stage-1/app-running-docker.png)
 _All services running with health checks in Docker Compose_
+
+</details>
+<details>
+<summary>Stage 2: CI/CD Pipeline</summary>
+
+![GitHub Actions workflow](docs/images/stage-2/run-jobs.png)
+_GitHub Actions workflow run showing all jobs (Lint, Build/Test/Scan, Publish) with green checkmarks_
+
+![DockerHub repositories](docs/images/stage-2/images.png)
+_DockerHub repositories showing published images with multiple tags (master, develop, SHA tags)_
+
+![GitHub Security](docs/images/stage-0/app-running.png)
+_GitHub Security tab displaying Trivy scan results with vulnerability reports for both containers_
 
 </details>
 

@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-RUN apk add --no-cache dumb-init
+RUN apk add --no-cache dumb-init curl
 
 RUN addgroup -g 1001 -S nodejs && \
   adduser -S nodejs -u 1001
