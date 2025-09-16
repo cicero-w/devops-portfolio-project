@@ -107,9 +107,9 @@ devops-portfolio-project/
 - [x] SSH Access: Configured passwordless SSH connection from macOS to VM
 - [x] Docker Installation: Installed Docker and Docker Compose on VM
 - [x] Application Containerization:
-      + Created multi-stage Dockerfile for React frontend with Nginx \
-      + Optimized Node.js backend Dockerfile with security best practices \
-      + Implemented health checks for all services \
+    + Created multi-stage Dockerfile for React frontend with Nginx \
+    + Optimized Node.js backend Dockerfile with security best practices \
+    + Implemented health checks for all services \
 - [x] Reverse Proxy Setup: Configured Nginx with:
       + Load balancing upstream configuration \
       + Security headers and rate limiting \
