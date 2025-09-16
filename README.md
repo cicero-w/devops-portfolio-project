@@ -111,35 +111,35 @@ devops-portfolio-project/
     + Optimized Node.js backend Dockerfile with security best practices \
     + Implemented health checks for all services \
 - [x] Reverse Proxy Setup: Configured Nginx with:
-      + Load balancing upstream configuration \
-      + Security headers and rate limiting \
-      + JSON logging for monitoring integration \
-      + Gzip compression optimization \
+    + Load balancing upstream configuration \
+    + Security headers and rate limiting \
+    + JSON logging for monitoring integration \
+    + Gzip compression optimization \
 - [x] Multi-Container Architecture: Docker Compose setup with:
-      + Isolated network with static IP assignment \
-      + Resource limits and reservations \
-      + Service dependencies and health checks \
-      + Volume management for persistent logs \
+    + Isolated network with static IP assignment \
+    + Resource limits and reservations \
+    + Service dependencies and health checks \
+    + Volume management for persistent logs \
 - [x] Production Deployment: Successfully deployed full-stack application accessible via `http://vm-ip`
 
 ### Stage 2: Build and Security Automation (CI) ✅ (Completed)
 - [x] DockerHub Integration: Created public repositories for backend and frontend
 - [x] GitHub Secrets: Configured secure authentication with DockerHub tokens
 - [x] GitHub Actions CI Pipeline:
-      + Dockerfile Linting: Hadolint validation with industry best practices \
-      + Multi-stage Build Process: Optimized Docker image construction \
-      + Container Testing: Automated health check validation for both services \
-      + Security Vulnerability Scanning: Trivy integration with SARIF reporting \
-      + Automated Publishing: Docker images pushed to DockerHub registry \
+    + Dockerfile Linting: Hadolint validation with industry best practices \
+    + Multi-stage Build Process: Optimized Docker image construction \
+    + Container Testing: Automated health check validation for both services \
+    + Security Vulnerability Scanning: Trivy integration with SARIF reporting \
+    + Automated Publishing: Docker images pushed to DockerHub registry \
 - [x] Security Integration:
-      + SARIF reports uploaded to GitHub Security tab \
-      + Critical and high-severity vulnerability detection \
-      + Automated security scanning on every commit \
+    + SARIF reports uploaded to GitHub Security tab \
+    + Critical and high-severity vulnerability detection \
+    + Automated security scanning on every commit \
 - [x] CI/CD Workflow Features:
-      + Parallel job execution for optimal performance \
-      + Artifact caching between pipeline stages \
-      + Conditional publishing (master/develop branches only) \
-      + Comprehensive job summaries and reporting \
+    + Parallel job execution for optimal performance \
+    + Artifact caching between pipeline stages \
+    + Conditional publishing (master/develop branches only) \
+    + Comprehensive job summaries and reporting \
 
 Key CI/CD Achievements:
   - Zero-touch deployment pipeline - from commit to registry automatically
