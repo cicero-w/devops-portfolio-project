@@ -1,6 +1,5 @@
 # GitOps & DevOps: From Code to Kubernetes on macOS
 
-<!-- ![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square) -->
 # DevOps Portfolio Project: From Code to Kubernetes on macOS
 
 [![CI Pipeline Status](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml/badge.svg)](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml)
@@ -17,6 +16,7 @@ This project demonstrates the full deployment cycle of a cloud-native applicatio
 **Author:** Pavlo \
 **Contacts:** [paul.antonenko.w@gmail.com](paul.antonenko.w@gmail.com) | [LinkedIn](https://www.linkedin.com/in/pavlo-antonenko/) \
 **Live Demo:** http://your-ip
+
 ---
 
 ## System Architecture
