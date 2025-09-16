@@ -1,7 +1,5 @@
 # GitOps & DevOps: From Code to Kubernetes on macOS
 
-# DevOps Portfolio Project: From Code to Kubernetes on macOS
-
 [![CI Pipeline Status](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml/badge.svg)](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml)
 [![Docker Image Version (Backend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-backend?label=backend&logo=docker&sort=semver)](https://hub.docker.com/r/cicero2/devops-portfolio-backend)
 [![Docker Image Version (Frontend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-frontend?label=frontend&logo=docker&sort=semver)](https://hub.docker.com/r/cicero2/devops-portfolio-frontend)
