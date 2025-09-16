@@ -1,8 +1,8 @@
 # GitOps & DevOps: From Code to Kubernetes on macOS
 
 [![CI Pipeline Status](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml/badge.svg)](https://github.com/cicero-w/devops-portfolio-project/actions/workflows/ci.yml)
-[![Docker Image Version (Backend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-backend?label=backend&logo=docker&sort=latest)](https://hub.docker.com/r/cicero2/devops-portfolio-backend)
-[![Docker Image Version (Frontend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-frontend?label=frontend&logo=docker&sort=latest)](https://hub.docker.com/r/cicero2/devops-portfolio-frontend)
+[![Docker Image Version (Backend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-backend?label=backend&logo=docker)](https://hub.docker.com/r/cicero2/devops-portfolio-backend)
+[![Docker Image Version (Frontend)](https://img.shields.io/docker/v/cicero2/devops-portfolio-frontend?label=frontend&logo=docker)](https://hub.docker.com/r/cicero2/devops-portfolio-frontend)
 [![GitHub license](https://img.shields.io/github/license/cicero-w/devops-portfolio-project)](https://github.com/cicero-w/devops-portfolio-project/blob/master/LICENSE)
 
 **Complete implementation of a DevOps pipeline for a web application using modern practices: CI/CD, Infrastructure as Code, Kubernetes, and GitOps, tailored for a local development environment.**
