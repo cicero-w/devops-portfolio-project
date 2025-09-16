@@ -1,52 +1,47 @@
 name: Trivy Scan
 
 on:
-  workflow_dispatch:
   push:
-    branches: [master, develop]
+    branches: [ main ]
   pull_request:
-    branches: [master]
-
-permissions:
-  contents: read
-  security-events: write
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'
 
 jobs:
   trivy-scan:
+    name: Scan with Trivy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Scan Backend with Trivy
+      - name: Scan Backend folder
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/devops-portfolio-backend:latest
+          scan-type: 'fs'
+          path: './backend'
           format: 'sarif'
           output: 'trivy-backend.sarif'
 
-      - name: Upload Backend Trivy scan results
+      - name: Scan Frontend folder
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          path: './frontend'
+          format: 'sarif'
+          output: 'trivy-frontend.sarif'
+
+      - name: Upload Trivy Backend results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-backend.sarif'
 
-      - name: Scan Frontend with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/devops-portfolio-frontend:latest
-          format: 'sarif'
-          output: 'trivy-frontend.sarif'
-
-      - name: Upload Frontend Trivy scan results
+      - name: Upload Trivy Frontend results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-frontend.sarif'
