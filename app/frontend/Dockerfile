@@ -6,6 +6,8 @@ LABEL description="GitOps & DevOps: From Code to Kubernetes on macOS"
 
 RUN apk add --no-cache curl
 
+RUN apk update && apk upgrade --no-cache
+
 WORKDIR /app
 
 COPY package*.json ./
