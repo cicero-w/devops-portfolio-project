@@ -119,7 +119,7 @@
           - docker-compose.prod.yml
         state: present
         pull: always
-        restarted: true
+        recreate: always
       become: false
       register: compose_result
       tags: [deploy]
